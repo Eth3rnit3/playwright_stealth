@@ -2,12 +2,19 @@
 
 require 'playwright'
 require_relative 'playwright_stealth/version'
-require 'playwright_stealth/download'
+require 'playwright_stealth/installer'
 require 'playwright_stealth/patcher'
 
 module PlaywrightStealth
   class Error < StandardError; end
-  # Your code goes here...
+
+  def install
+    Installer.install
+  end
+
+  def installed?
+    File.exist?(Download::EXE_PATH)
+  end
 
   def browser(browser_name = 'chromium', headless: false)
     # PlaywrightStealth::Download.call

@@ -5,13 +5,13 @@ require 'zip'
 require_relative 'ps_logger'
 
 module PlaywrightStealth
-  module Download
+  module Installer
     URL         = 'https://playwright.azureedge.net/builds/driver/playwright-1.47.1-linux.zip'
     ZIP_PATH    = '/tmp/playwright.zip'
     DRIVER_DIR  = "#{Dir.pwd}/playwright".freeze
     EXE_PATH    = "#{DRIVER_DIR}/package/cli.js".freeze
 
-    def call
+    def install
       remove_driver
       write_file(download_driver)
       unzip_driver
@@ -69,6 +69,6 @@ module PlaywrightStealth
       system("#{EXE_PATH} install")
     end
 
-    module_function :call, :download_driver, :write_file, :unzip_driver, :remove_driver, :make_executable, :install_dependencies
+    module_function :install, :download_driver, :write_file, :unzip_driver, :remove_driver, :make_executable, :install_dependencies
   end
 end
