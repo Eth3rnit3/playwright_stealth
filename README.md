@@ -1,4 +1,5 @@
 # PlaywrightStealth
+[![Ruby](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/main.yml/badge.svg)](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/main.yml)
 
 Playwright Stealth is a Ruby gem that allows you to use Playwright with stealth mode. It patches Playwright to prevent detection.
 
@@ -23,10 +24,12 @@ To use Playwright Stealth, require the gem in your Ruby script and initialize it
 ```ruby
 require 'playwright_stealth'
 
-PlaywrightStealth.browser('chromium', headless: true) do |_context, page|
-	page.goto('https://bot.sannysoft.com')
-	sleep(1)
-	page.screenshot(path: 'results/intoli.png')
+PlaywrightStealth.install unless PlaywrightStealth.installed?
+
+PlaywrightStealth.browser(:chromium, headless: true) do |_context, page|
+  page.goto('https://bot.sannysoft.com')
+  sleep(1)
+  page.screenshot(path: 'results/intoli.png')
 end
 ```
 

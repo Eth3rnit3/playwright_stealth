@@ -6,6 +6,9 @@ require_relative 'ps_logger'
 
 module PlaywrightStealth
   module Installer
+    class DownloadError < StandardError; end
+    class WriteError < StandardError; end
+
     def install
       remove_driver
       write_file(download_driver)

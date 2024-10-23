@@ -10,7 +10,7 @@ class Tester
   # Tester.new(headless: true).open
   def open
     PlaywrightStealth.browser(headless: @headless) do |_context, page|
-      binding.irb
+      binding.irb # rubocop:disable Lint/Debugger
     end
   end
 
@@ -56,7 +56,6 @@ class Tester
   def test_chrome_config
     PlaywrightStealth.browser(headless: @headless) do |_context, page|
       sleep(1)
-      binding.irb
       page.goto('chrome://version')
       sleep(2)
       page.screenshot(path: 'results/chrome_config.png')

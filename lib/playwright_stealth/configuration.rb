@@ -24,8 +24,7 @@ module PlaywrightStealth
         '--start-maximized',
         '--no-sandbox',
         '--lang=en-EN',
-        '--disable-blink-features=AutomationControlled',
-        '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)'
+        '--disable-blink-features=AutomationControlled'
       ]
       config.headless_args = [
         '--window-position=-2400,-2400',

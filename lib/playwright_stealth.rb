@@ -50,6 +50,8 @@ module PlaywrightStealth
         ]
       }
       opts[:args] = config.args + config.headless_args if headless
+      opts[:args] << "--user-agent=#{Helpers.valid_agent}"
+
       playwright.send(browser_name).launch_persistent_context(data_dir, **opts) do |context|
         Patcher.patch(context)
         page = context.new_page
@@ -57,5 +59,5 @@ module PlaywrightStealth
       end
     end
   end
-  module_function :browser, :configure, :config, :install, :installed?, :configuration, :valid_agent
+  module_function :browser, :configure, :config, :install, :installed?, :configuration
 end
