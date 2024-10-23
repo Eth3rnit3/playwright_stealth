@@ -6,32 +6,27 @@ require_relative 'ps_logger'
 
 module PlaywrightStealth
   module Installer
-    URL         = 'https://playwright.azureedge.net/builds/driver/playwright-1.47.1-linux.zip'
-    ZIP_PATH    = '/tmp/playwright.zip'
-    DRIVER_DIR  = "#{Dir.pwd}/playwright".freeze
-    EXE_PATH    = "#{DRIVER_DIR}/package/cli.js".freeze
-
     def install
       remove_driver
       write_file(download_driver)
       unzip_driver
       make_executable
       install_dependencies
-      PsLogger.log('Playwright driver downloaded and unzipped')
+      logger.log('Playwright driver downloaded and unzipped')
     end
 
     private
 
     def remove_driver
-      return unless File.directory?(DRIVER_DIR)
+      return unless File.directory?(config.driver_path)
 
-      PsLogger.log("Removing current Playwright driver from #{DRIVER_DIR}")
-      FileUtils.rm_rf(DRIVER_DIR)
+      logger.log("Removing current Playwright driver from #{config.driver_path}")
+      FileUtils.rm_rf(config.driver_path)
     end
 
     def download_driver
-      PsLogger.log('Downloading Playwright driver...')
-      uri = URI(URL)
+      logger.log('Downloading Playwright driver...')
+      uri = URI(config.playwright_url)
       Net::HTTP.get(uri)
     rescue StandardError => e
       raise DownloadError, "Failed to download chromedriver zip: #{e.message}"
@@ -39,7 +34,7 @@ module PlaywrightStealth
 
     def write_file(data)
       output_path = '/tmp/playwright.zip'
-      PsLogger.log("Writing Playwright driver to #{output_path}")
+      logger.log("Writing Playwright driver to #{output_path}")
       File.binwrite(output_path, data)
       output_path
     rescue StandardError => e
@@ -47,28 +42,36 @@ module PlaywrightStealth
     end
 
     def unzip_driver
-      PsLogger.log("Unzipping Playwright driver to #{DRIVER_DIR}")
-      FileUtils.mkdir_p(DRIVER_DIR) unless File.directory?(DRIVER_DIR)
+      logger.log("Unzipping Playwright driver to #{config.driver_path}")
+      FileUtils.mkdir_p(config.driver_path) unless File.directory?(config.driver_path)
 
-      Zip::File.open(ZIP_PATH) do |zip_file|
+      Zip::File.open(config.zip_path) do |zip_file|
         zip_file.each do |f|
-          zip_file.extract(f, "#{DRIVER_DIR}/#{f.name}")
+          zip_file.extract(f, "#{config.driver_path}/#{f.name}")
         end
       end
     end
 
     def make_executable
-      PsLogger.log('Making Playwright driver executable')
+      logger.log('Making Playwright driver executable')
 
-      FileUtils.chmod('+x', EXE_PATH)
+      FileUtils.chmod('+x', config.exe_path)
     end
 
     def install_dependencies
-      PsLogger.log('Installing Playwright dependencies')
+      logger.log('Installing Playwright dependencies')
 
-      system("#{EXE_PATH} install")
+      system("#{config.exe_path} install")
     end
 
-    module_function :install, :download_driver, :write_file, :unzip_driver, :remove_driver, :make_executable, :install_dependencies
+    def config
+      PlaywrightStealth.config
+    end
+
+    def logger
+      config.logger
+    end
+
+    module_function :install, :download_driver, :write_file, :unzip_driver, :remove_driver, :make_executable, :install_dependencies, :config, :logger
   end
 end

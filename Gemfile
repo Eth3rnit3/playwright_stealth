@@ -14,3 +14,5 @@ gem 'rubocop', '~> 1.21'
 gem 'playwright-ruby-client', '~> 1.47'
 
 gem 'rubyzip', '~> 2.3'
+
+gem "activesupport", "~> 7.2"
