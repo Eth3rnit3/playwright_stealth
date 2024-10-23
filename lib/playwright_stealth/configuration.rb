@@ -20,19 +20,17 @@ module PlaywrightStealth
       config.logger         = PsLogger
       config.headless       = false
       config.args           = [
+        '--no-first-run',
         '--start-maximized',
         '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
         '--lang=en-EN',
-        '--disable-blink-features=AutomationControlled'
+        '--disable-blink-features=AutomationControlled',
+        '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)'
       ]
-
-      if config.headless
-        config.args.push('--window-position=-2400,-2400')
-        config.args.push('--headless=new')
-        config.args.push('--disable-gpu')
-      end
+      config.headless_args = [
+        '--window-position=-2400,-2400',
+        '--headless=new'
+      ]
     end
   end
 end
