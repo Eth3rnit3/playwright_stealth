@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    playwright_stealth (0.1.0)
+    playwright_stealth (0.0.1.pre)
       activesupport (~> 7.2)
       playwright-ruby-client (~> 1.47)
       rubyzip (~> 2.3)

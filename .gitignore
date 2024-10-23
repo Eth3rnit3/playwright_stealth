@@ -12,3 +12,4 @@
 
 playwright/
 *.zip
+*.gem
