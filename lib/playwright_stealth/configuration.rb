@@ -14,11 +14,25 @@ module PlaywrightStealth
 
     configure do |config|
       config.playwright_url = URL
-      config.zip_path = ZIP_PATH
-      config.driver_path = DRIVER_DIR
-      config.exe_path = EXE_PATH
-      config.logger = PsLogger
-      config.headless = false
+      config.zip_path       = ZIP_PATH
+      config.driver_path    = DRIVER_DIR
+      config.exe_path       = EXE_PATH
+      config.logger         = PsLogger
+      config.headless       = false
+      config.args           = [
+        '--start-maximized',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--lang=en-EN',
+        '--disable-blink-features=AutomationControlled'
+      ]
+
+      if config.headless
+        config.args.push('--window-position=-2400,-2400')
+        config.args.push('--headless=new')
+        config.args.push('--disable-gpu')
+      end
     end
   end
 end
