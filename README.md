@@ -1,5 +1,6 @@
 # PlaywrightStealth
 [![Ruby](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/main.yml/badge.svg)](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/main.yml)
+[![Gem Release](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/release.yml/badge.svg)](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/release.yml)
 
 Playwright Stealth is a Ruby gem that allows you to use Playwright with stealth mode. It patches Playwright to prevent detection.
 
