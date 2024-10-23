@@ -9,17 +9,23 @@ module PlaywrightStealth
     URL         = 'https://playwright.azureedge.net/builds/driver/playwright-1.47.1-linux.zip'
     ZIP_PATH    = '/tmp/playwright.zip'
     DRIVER_DIR  = "#{Dir.pwd}/playwright".freeze
+    EXE_PATH    = "#{DRIVER_DIR}/package/cli.js".freeze
 
     def call
+      remove_driver
       write_file(download_driver)
       unzip_driver
+      make_executable
+      install_dependencies
       PsLogger.log('Playwright driver downloaded and unzipped')
     end
+
+    private
 
     def remove_driver
       return unless File.directory?(DRIVER_DIR)
 
-      PsLogger.log("Removing Playwright driver from #{DRIVER_DIR}")
+      PsLogger.log("Removing current Playwright driver from #{DRIVER_DIR}")
       FileUtils.rm_rf(DRIVER_DIR)
     end
 
@@ -51,6 +57,18 @@ module PlaywrightStealth
       end
     end
 
-    module_function :call, :download_driver, :write_file, :unzip_driver
+    def make_executable
+      PsLogger.log('Making Playwright driver executable')
+
+      FileUtils.chmod('+x', EXE_PATH)
+    end
+
+    def install_dependencies
+      PsLogger.log('Installing Playwright dependencies')
+
+      system("#{EXE_PATH} install")
+    end
+
+    module_function :call, :download_driver, :write_file, :unzip_driver, :remove_driver, :make_executable, :install_dependencies
   end
 end
