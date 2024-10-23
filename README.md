@@ -32,13 +32,13 @@ end
 
 ## Screenshots of Web Bot Detections
 ### ✅ Intoli
-[Intoli](results/intoli.png)
+![Intoli](results/intoli.png)
 
 ### ✅ Browserleaks
-[Browserleaks](results/browserleaks.png)
+![Browserleaks](results/browserleaks.png)
 
 ### 🟠 Pixelscan
-[Pixelscan](results/pixelscan.png)
+![Pixelscan](results/pixelscan.png)
 
 ## Development
 
