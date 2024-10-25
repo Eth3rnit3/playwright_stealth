@@ -56,6 +56,12 @@ end
   <img width="600" src="results/pixelscan.png" alt="Pixelscan Detection Screenshot">
 </p>
 
+### 🟠 Brodetector (headless)
+
+<p align="center">
+  <img width="600" src="results/brodetector.png" alt="Brodetector Detection Screenshot">
+</p>
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

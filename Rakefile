@@ -47,9 +47,10 @@ namespace :test do
   desc 'Run Brodetector test in headless mode'
   task :brodetector do
     PlaywrightStealth.browser(headless: true) do |_context, page|
-      page.goto('https://kaliiiiiiiiii.github.io/brotector')
+      page.goto('https://kaliiiiiiiiii.github.io/brotector?crash=false')
       page.wait_for_selector('#clickHere')
-      page.click('#clickHere')
+      element = page.locator('#clickHere')
+      element.click
       sleep(5)
       page.screenshot(path: 'results/brodetector.png')
     end

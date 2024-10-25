@@ -4,7 +4,7 @@ require_relative 'ps_logger'
 
 module PlaywrightStealth
   class Configuration
-    URL         = 'https://playwright.azureedge.net/builds/driver/playwright-1.47.1-linux.zip'
+    URL         = 'https://playwright.azureedge.net/builds/driver/playwright-1.45.0-linux.zip' # latest undetectable version https://github.com/kaliiiiiiiiii/brotector?tab=readme-ov-file#pwinitscript
     ZIP_PATH    = '/tmp/playwright.zip'
     DRIVER_DIR  = "#{Dir.pwd}/playwright".freeze
     EXE_PATH    = "#{DRIVER_DIR}/package/cli.js".freeze
@@ -21,7 +21,6 @@ module PlaywrightStealth
       @args           = [
         '--no-first-run',
         '--start-maximized',
-        '--no-sandbox',
         '--lang=en-EN',
         '--disable-blink-features=AutomationControlled'
       ]
