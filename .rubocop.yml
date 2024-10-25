@@ -2,7 +2,9 @@ AllCops:
   TargetRubyVersion: 3.0
   NewCops: enable
   Exclude:
-    - Rakefile
+    - 'Rakefile'
+    - 'bin/**/*'
+    - 'vendor/**/*'
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
