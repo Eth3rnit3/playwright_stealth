@@ -33,7 +33,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport', '~> 7.2'
   spec.add_dependency 'playwright-ruby-client', '~> 1.47'
   spec.add_dependency 'rubyzip', '~> 2.3'
 

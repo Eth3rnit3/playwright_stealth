@@ -13,7 +13,7 @@ RSpec.describe PlaywrightStealth do
 
   describe '#config' do
     it 'returns a hash' do
-      expect(PlaywrightStealth.config).to be_a(Hash)
+      expect(PlaywrightStealth.config).to be_a(PlaywrightStealth::Configuration)
     end
   end
 
