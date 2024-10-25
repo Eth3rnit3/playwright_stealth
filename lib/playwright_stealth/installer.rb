@@ -15,7 +15,8 @@ module PlaywrightStealth
       unzip_driver
       make_executable
       install_dependencies
-      logger.log('Playwright driver downloaded and unzipped')
+      patch_driver
+      logger.log('Playwright driver downloaded and patched successfully')
     end
 
     private
@@ -64,7 +65,21 @@ module PlaywrightStealth
     def install_dependencies
       logger.log('Installing Playwright dependencies')
 
-      system("#{config.exe_path} install")
+      IO.popen("#{config.exe_path} install") do |io|
+        io.each do |line|
+          logger.log(line)
+        end
+      end
+    end
+
+    def patch_driver
+      logger.log('Patching Playwright driver')
+
+      IO.popen("npx -y rebrowser-patches@latest patch --packagePath #{config.driver_path}/package") do |io|
+        io.each do |line|
+          logger.log(line)
+        end
+      end
     end
 
     def config
@@ -75,6 +90,7 @@ module PlaywrightStealth
       config.logger
     end
 
-    module_function :install, :download_driver, :write_file, :unzip_driver, :remove_driver, :make_executable, :install_dependencies, :config, :logger
+    module_function :install, :download_driver, :write_file, :unzip_driver, :remove_driver, :make_executable, :install_dependencies, :patch_driver, :config,
+                    :logger
   end
 end

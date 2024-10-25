@@ -39,6 +39,10 @@ end
 
 ### ✅ Intoli (headless)
 
+```sh
+bundle exec rake test:intoli
+```
+
 <p align="center">
   <img width="300" src="results/intoli.png" alt="Intoli Detection Screenshot">
   <img height="500" src="results/intoli2.png" alt="Intoli Detection Screenshot 2">
@@ -46,17 +50,29 @@ end
 
 ### ✅ Browserleaks (headless)
 
+```sh
+bundle exec rake test:browserleaks
+```
+
 <p align="center">
   <img width="600" src="results/browserleaks.png" alt="Browserleaks Detection Screenshot">
 </p>
 
 ### ✅ Pixelscan (headless)
 
+```sh
+bundle exec rake test:pixelscan
+```
+
 <p align="center">
   <img width="600" src="results/pixelscan.png" alt="Pixelscan Detection Screenshot">
 </p>
 
 ### 🟠 Brodetector (headless)
+
+```sh
+bundle exec rake test:brodetector
+```
 
 <p align="center">
   <img width="600" src="results/brodetector.png" alt="Brodetector Detection Screenshot">
@@ -88,6 +104,7 @@ Bug reports and pull requests are welcome on GitHub at [https://github.com/Eth3r
 
 This gem was built with the help of the following projects:
 
+- [rebrowser-patches](https://github.com/rebrowser/rebrowser-patches)
 - [playwright-ruby-client](https://github.com/YusukeIwaki/playwright-ruby-client)
 - [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver)
 - [puppeteer-extra](https://github.com/berstend/puppeteer-extra)

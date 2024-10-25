@@ -25,7 +25,7 @@ RSpec.describe PlaywrightStealth do
 
   describe '#install' do
     it 'calls Installer.install' do
-      allow(PlaywrightStealth::Installer).to receive(:install)
+      allow(PlaywrightStealth::Installer).to receive(:install).and_return(nil)
 
       PlaywrightStealth.install
 
@@ -64,19 +64,12 @@ RSpec.describe PlaywrightStealth do
       allow(playwright).to receive(:chromium).and_return(browser)
       allow(browser).to receive(:launch_persistent_context).and_yield(context)
       allow(context).to receive(:new_page).and_return(page)
-      allow(PlaywrightStealth::Patcher).to receive(:patch)
     end
 
     it 'calls Playwright.create' do
       PlaywrightStealth.browser(browser_name, headless: headless)
 
       expect(Playwright).to have_received(:create)
-    end
-
-    it 'calls Patcher.patch' do
-      PlaywrightStealth.browser(browser_name, headless: headless)
-
-      expect(PlaywrightStealth::Patcher).to have_received(:patch).with(context)
     end
 
     it 'calls Browser#new_page' do

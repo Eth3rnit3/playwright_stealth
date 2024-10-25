@@ -5,7 +5,6 @@ require_relative 'playwright_stealth/version'
 require_relative 'playwright_stealth/helpers'
 require_relative 'playwright_stealth/configuration'
 require 'playwright_stealth/installer'
-require 'playwright_stealth/patcher'
 
 module PlaywrightStealth
   include Helpers
@@ -53,7 +52,6 @@ module PlaywrightStealth
       opts[:args] << "--user-agent=#{Helpers.valid_agent}"
 
       playwright.send(browser_name).launch_persistent_context(data_dir, **opts) do |context|
-        Patcher.patch(context)
         page = context.new_page
         yield([context, page]) if block_given?
       end

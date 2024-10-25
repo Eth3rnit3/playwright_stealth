@@ -99,4 +99,30 @@ RSpec.describe PlaywrightStealth::Installer do
       expect(FileUtils).to have_received(:chmod).with('+x', described_class.config.exe_path)
     end
   end
+
+  describe '#install_dependencies' do
+    before do
+      allow(IO).to receive(:popen).and_yield(StringIO.new)
+    end
+
+    it 'installs the driver dependencies' do
+      installer.send(:install_dependencies)
+
+      expect(IO).to have_received(:popen).with("#{described_class.config.exe_path} install")
+    end
+  end
+
+  describe '#patch_driver' do
+    before do
+      allow(IO).to receive(:popen).and_yield(StringIO.new)
+    end
+
+    it 'patches the driver' do
+      installer.send(:patch_driver)
+
+      expect(IO).to have_received(:popen).with(
+        "npx -y rebrowser-patches@latest patch --packagePath #{described_class.config.driver_path}/package"
+      )
+    end
+  end
 end
