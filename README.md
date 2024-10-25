@@ -35,14 +35,21 @@ end
 ```
 
 ## Screenshots of Web Bot Detections
-### ✅ Intoli
-![Intoli](results/intoli.png)
+### ✅ Intoli (headless)
+<p align="center">
+  <img align="left" width="300" src="results/intoli.png">
+  <img align="left" height="500" src="results/intoli2.png">
+</p>
 
-### ✅ Browserleaks
-![Browserleaks](results/browserleaks.png)
+### ✅ Browserleaks (headless)
+<p align="center">
+  <img align="left" width="300" src="results/browserleaks.png">
+</p>
 
-### 🟠 Pixelscan
-![Pixelscan](results/pixelscan.png)
+### ✅ Pixelscan (headless)
+<p align="center">
+  <img align="left" width="300" src="results/pixelscan.png">
+</p>
 
 ## Development
 
