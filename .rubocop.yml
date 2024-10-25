@@ -1,6 +1,8 @@
 AllCops:
   TargetRubyVersion: 3.0
   NewCops: enable
+  Exclude:
+    - Rakefile
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes

@@ -16,7 +16,7 @@ namespace :test do
   desc 'Open a browser and get interactive session'
   task :open_browser do
     PlaywrightStealth.browser(headless: false) do |_context, page|
-      binding.irb # rubocop:disable Lint/Debugger
+      binding.irb
     end
   end
 
