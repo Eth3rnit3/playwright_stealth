@@ -74,6 +74,15 @@ namespace :test do
     end
   end
 
+  desc 'Run Bot Detector test in headless mode'
+  task :bot_detector do
+    PlaywrightStealth.browser(headless: true) do |_context, page|
+      page.goto('https://bot-detector.rebrowser.net')
+      sleep(5)
+      page.screenshot(path: 'results/bot-detector.png')
+    end
+  end
+
   desc 'Run Chrome Config in browser mode'
   task :chrome_config do
     PlaywrightStealth.browser(headless: false) do |_context, page|
