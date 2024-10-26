@@ -20,6 +20,13 @@ namespace :test do
     end
   end
 
+  desc 'Open a browser and get interactive session (headless)'
+  task :open_browser_headless do
+    PlaywrightStealth.browser(headless: true) do |_context, page|
+      binding.irb
+    end
+  end
+
   desc 'Run Intoli test in headless mode'
   task :intoli do
     PlaywrightStealth.browser(headless: true) do |_context, page|
@@ -64,6 +71,18 @@ namespace :test do
       container = page.query_selector('#canvas-data')
       sleep(5)
       container.screenshot(path: 'results/browserleaks.png')
+    end
+  end
+
+  # bundle exec rake test:bot_detector
+  desc 'Run Bot Detector test in headless mode'
+  task :bot_detector do
+    PlaywrightStealth.browser(headless: true) do |_context, page|
+      page.goto('https://bot-detector.rebrowser.net')
+      page.wait_for_selector('#detections-table')
+      table = page.query_selector('#detections-table')
+      sleep(5)
+      table.screenshot(path: 'results/bot-detector.png')
     end
   end
 
