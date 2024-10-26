@@ -74,12 +74,15 @@ namespace :test do
     end
   end
 
+  # bundle exec rake test:bot_detector
   desc 'Run Bot Detector test in headless mode'
   task :bot_detector do
     PlaywrightStealth.browser(headless: true) do |_context, page|
       page.goto('https://bot-detector.rebrowser.net')
+      page.wait_for_selector('#detections-table')
+      table = page.query_selector('#detections-table')
       sleep(5)
-      page.screenshot(path: 'results/bot-detector.png')
+      table.screenshot(path: 'results/bot-detector.png')
     end
   end
 

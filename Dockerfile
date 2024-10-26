@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libwebp-dev \
     udev \
     fonts-freefont-ttf \
+    fonts-noto-color-emoji \ 
     nodejs \
     npm \
     libxcursor1 \
