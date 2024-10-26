@@ -20,6 +20,13 @@ namespace :test do
     end
   end
 
+  desc 'Open a browser and get interactive session (headless)'
+  task :open_browser_headless do
+    PlaywrightStealth.browser(headless: true) do |_context, page|
+      binding.irb
+    end
+  end
+
   desc 'Run Intoli test in headless mode'
   task :intoli do
     PlaywrightStealth.browser(headless: true) do |_context, page|
