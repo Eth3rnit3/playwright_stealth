@@ -25,6 +25,7 @@ module PlaywrightStealth
         '--disable-blink-features=AutomationControlled'
       ]
       @headless_args = [
+        '--window-size=1920,1080',
         '--window-position=-2400,-2400',
         '--headless=new'
       ]

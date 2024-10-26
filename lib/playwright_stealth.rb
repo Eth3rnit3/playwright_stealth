@@ -5,6 +5,8 @@ require_relative 'playwright_stealth/version'
 require_relative 'playwright_stealth/helpers'
 require_relative 'playwright_stealth/configuration'
 require 'playwright_stealth/installer'
+require 'playwright_stealth/user_agent'
+require 'playwright_stealth/native_mouse_controller'
 
 module PlaywrightStealth
   include Helpers
@@ -49,7 +51,7 @@ module PlaywrightStealth
         ]
       }
       opts[:args] = config.args + config.headless_args if headless
-      opts[:args] << "--user-agent=#{Helpers.valid_agent}"
+      opts[:args] << "--user-agent=#{UserAgent.generate_user_agent(browser: browser_name)}"
 
       playwright.send(browser_name).launch_persistent_context(data_dir, **opts) do |context|
         page = context.new_page

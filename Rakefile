@@ -54,11 +54,28 @@ namespace :test do
   desc 'Run Brodetector test in headless mode'
   task :brodetector do
     PlaywrightStealth.browser(headless: true) do |_context, page|
-      page.goto('https://kaliiiiiiiiii.github.io/brotector?crash=false')
-      page.wait_for_selector('#clickHere')
-      element = page.locator('#clickHere')
-      element.click
-      sleep(5)
+      # page.goto('https://kaliiiiiiiiii.github.io/brotector?crash=false')
+      page.goto('http://127.0.0.1:8001')
+      # page.wait_for_selector('#clickHere')
+      # element = page.locator('#clickHere')
+      # box = element.bounding_box
+      controller = PlaywrightStealth::NativeMouseController.new
+      controller.set_focus
+      controller.move_mouse(10, 100)
+      controller.click
+      controller.move_mouse(60, 150)
+      controller.click
+      controller.move_mouse(60, 180)
+      controller.click
+      controller.move_mouse(60, 210)
+      controller.click
+      controller.move_mouse(60, 240)
+      controller.click
+      controller.move_mouse(60, 270)
+      controller.click
+    
+      controller.close
+      sleep(2)
       page.screenshot(path: 'results/brodetector.png')
     end
   end
@@ -93,6 +110,80 @@ namespace :test do
       page.goto('chrome://version')
       sleep(2)
       page.screenshot(path: 'results/chrome_config.png')
+    end
+  end
+
+  task :native_click do
+    x_offset = 10
+    y_offset = 100
+    PlaywrightStealth.browser(headless: false) do |_context, page|
+      page.goto('http://127.0.0.1:8001')
+
+      # Init mouse controller
+      controller = PlaywrightStealth::NativeMouseController.new
+      controller.set_focus
+      # Move mouse to browser start position
+      controller.move_mouse(x_offset, y_offset)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      element = page.locator('#interactive-button')
+      box = element.bounding_box
+      x = box['x'] + x_offset
+      y = box['y'] + y_offset
+      # Move mouse to start position of the button
+      controller.move_mouse(x, y)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Move mouse to center of the button
+      controller.move_mouse(x + box['width'] / 2, y + box['height'] / 2)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Move mouse to end position of the button
+      controller.move_mouse(x + box['width'], y + box['height'])
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Move mouse to center of the screen
+      controller.move_mouse(960, 540)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Move mouse to end position of the screen
+      controller.move_mouse(1920, 1080)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      controller.close
+    end
+  end
+
+  task :native_click_each_pixel do
+    PlaywrightStealth.browser(headless: false) do |_context, page|
+      page.goto('http://127.0.0.1:8001')
+
+      min_x = 10
+      max_x = 1920
+      min_y = 100
+      max_y = 1080
+      controller = PlaywrightStealth::NativeMouseController.new
+      controller.set_focus
+      (min_x..max_x).each do |x|
+        (min_y..max_y).each do |y|
+          # click every 30 pixels
+          next if x % 30 != 0 || y % 30 != 0
+          next if y >= 500
+
+          puts "Clicking on x: #{x} y: #{y}"
+          controller.move_mouse(x, y)
+          controller.click
+          page.screenshot(path: 'tests/whereIClick/click.png')
+        end
+      end
+
+      controller.close
     end
   end
 end
