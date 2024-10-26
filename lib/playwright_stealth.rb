@@ -7,6 +7,7 @@ require_relative 'playwright_stealth/configuration'
 require 'playwright_stealth/installer'
 require 'playwright_stealth/user_agent'
 require 'playwright_stealth/native_mouse_controller'
+require 'playwright_stealth/window_info'
 
 module PlaywrightStealth
   include Helpers
@@ -55,6 +56,7 @@ module PlaywrightStealth
 
       playwright.send(browser_name).launch_persistent_context(data_dir, **opts) do |context|
         page = context.new_page
+        page.set_viewport_size(width: 1920, height: 1080)
         yield([context, page]) if block_given?
       end
     end

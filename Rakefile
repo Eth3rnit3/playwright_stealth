@@ -54,29 +54,18 @@ namespace :test do
   desc 'Run Brodetector test in headless mode'
   task :brodetector do
     PlaywrightStealth.browser(headless: true) do |_context, page|
-      # page.goto('https://kaliiiiiiiiii.github.io/brotector?crash=false')
-      page.goto('http://127.0.0.1:8001')
-      # page.wait_for_selector('#clickHere')
-      # element = page.locator('#clickHere')
-      # box = element.bounding_box
+      page.goto('https://kaliiiiiiiiii.github.io/brotector?crash=false')
+      page.wait_for_selector('#clickHere')
+      element = page.locator('#clickHere')
+      box = element.bounding_box
       controller = PlaywrightStealth::NativeMouseController.new
+      binding.irb
       controller.set_focus
-      controller.move_mouse(10, 100)
-      controller.click
-      controller.move_mouse(60, 150)
-      controller.click
-      controller.move_mouse(60, 180)
-      controller.click
-      controller.move_mouse(60, 210)
-      controller.click
-      controller.move_mouse(60, 240)
-      controller.click
-      controller.move_mouse(60, 270)
-      controller.click
-    
-      controller.close
-      sleep(2)
+      controller.move_and_click(box)
+      controller.move_and_click(box)
+      controller.move_and_click(box)
       page.screenshot(path: 'results/brodetector.png')
+      controller.close
     end
   end
 
@@ -114,46 +103,15 @@ namespace :test do
   end
 
   task :native_click do
-    x_offset = 10
-    y_offset = 100
     PlaywrightStealth.browser(headless: false) do |_context, page|
       page.goto('http://127.0.0.1:8001')
 
       # Init mouse controller
       controller = PlaywrightStealth::NativeMouseController.new
       controller.set_focus
-      # Move mouse to browser start position
-      controller.move_mouse(x_offset, y_offset)
-      controller.click
-      page.screenshot(path: 'tests/whereIClick/click.png')
-
       element = page.locator('#interactive-button')
-      box = element.bounding_box
-      x = box['x'] + x_offset
-      y = box['y'] + y_offset
-      # Move mouse to start position of the button
-      controller.move_mouse(x, y)
-      controller.click
-      page.screenshot(path: 'tests/whereIClick/click.png')
-
-      # Move mouse to center of the button
-      controller.move_mouse(x + box['width'] / 2, y + box['height'] / 2)
-      controller.click
-      page.screenshot(path: 'tests/whereIClick/click.png')
-
-      # Move mouse to end position of the button
-      controller.move_mouse(x + box['width'], y + box['height'])
-      controller.click
-      page.screenshot(path: 'tests/whereIClick/click.png')
-
-      # Move mouse to center of the screen
-      controller.move_mouse(960, 540)
-      controller.click
-      page.screenshot(path: 'tests/whereIClick/click.png')
-
-      # Move mouse to end position of the screen
-      controller.move_mouse(1920, 1080)
-      controller.click
+      bounding_box = element.bounding_box
+      controller.move_and_click(bounding_box)
       page.screenshot(path: 'tests/whereIClick/click.png')
 
       controller.close
@@ -182,6 +140,54 @@ namespace :test do
           page.screenshot(path: 'tests/whereIClick/click.png')
         end
       end
+
+      controller.close
+    end
+  end
+
+  task :native_click_on_corners do
+    PlaywrightStealth.browser(headless: false) do |_context, page|
+        # Exemple d'utilisation :
+      info = PlaywrightStealth::WindowInfo.new
+      root_win = info.root_window
+      puts 'Root window geometry:'
+      puts info.window_geometry(root_win)
+      page.goto('http://127.0.0.1:8001')
+
+      view_port = page.viewport_size
+
+      min_x = 10
+      max_x = view_port[:width] + 20
+      min_y = 100
+      max_y = view_port[:height] + 200
+      
+      controller = PlaywrightStealth::NativeMouseController.new
+      controller.set_focus
+
+      # Click on top left corner
+      controller.move_mouse(min_x, min_y)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Click on top right corner
+      controller.move_mouse(max_x, min_y)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Click on bottom left corner
+      controller.move_mouse(min_x, max_y)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Click on bottom right corner
+      controller.move_mouse(max_x, max_y)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
+
+      # Click on center
+      controller.move_mouse(max_x / 2, max_y / 2)
+      controller.click
+      page.screenshot(path: 'tests/whereIClick/click.png')
 
       controller.close
     end

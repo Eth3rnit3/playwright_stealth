@@ -33,6 +33,11 @@ end
 
 module PlaywrightStealth
   class NativeMouseController
+    X_MIN = 10
+    Y_MIN = 100
+    X_MAX = 1920
+    Y_MAX = 1080
+
     def initialize
       @display = FFI::X11.XOpenDisplay(nil)
       raise 'Cannot open display' if @display.null?
@@ -83,6 +88,19 @@ module PlaywrightStealth
       sleep(0.05)
       FFI::X11.XTestFakeButtonEvent(@display, button, false, 0)
       FFI::X11.XFlush(@display)
+    end
+
+    def move_and_click(bounding_box)
+      el_x = bounding_box['x'].to_i
+      el_y = bounding_box['y'].to_i
+      el_width = bounding_box['width'].to_i
+      el_height = bounding_box['height'].to_i
+
+      target_x = el_x + X_MIN + (el_width / 2)
+      target_y = el_y + Y_MIN + (el_height / 2)
+
+      move_mouse(target_x, target_y)
+      click
     end
 
     def close
