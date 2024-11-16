@@ -1,3 +1,6 @@
+# Archived
+This project is archived and will no longer be maintained by its contributor due to a change in management. This project is now replaced by https://github.com/Eth3rnit3/chromate
+
 # PlaywrightStealth
 
 [![Ruby](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/main.yml/badge.svg)](https://github.com/Eth3rnit3/playwright_stealth/actions/workflows/main.yml)
