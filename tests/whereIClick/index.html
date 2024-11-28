@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Click Visualizer</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      position: relative;
+    }
+    .click-point {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+    }
+    .left-click {
+      background-color: red;
+    }
+    .right-click {
+      background-color: blue;
+    }
+    #interactive-button {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      padding: 10px 20px;
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="interactive-button">Click Me!</button>
+  <div id"=horizontal-line" style="position: absolute; top: 50vh; left: 0; width: 100vw; height: 1px; background-color: white;"></div>
+    <div id"=vertical-line" style="position: absolute; top: 0; left: 50vw; width: 1px; height: 100vh; background-color: white;"></div>
+
+  <script>
+    let clickCount = 0;
+
+    document.addEventListener('click', (event) => {
+      clickCount++;
+      createClickPoint(event.pageX, event.pageY, 'left-click', clickCount);
+    });
+
+    document.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+      clickCount++;
+      createClickPoint(event.pageX, event.pageY, 'right-click', clickCount);
+    });
+
+    document.getElementById('interactive-button').addEventListener('click', (event) => {
+      event.target.style.backgroundColor = 'green';
+      event.target.textContent = 'Clicked!';
+    });
+
+    function createClickPoint(x, y, clickType, count) {
+      const point = document.createElement('div');
+      point.classList.add('click-point', clickType);
+      point.style.left = `${x - 10}px`;
+      point.style.top = `${y - 10}px`;
+      point.textContent = count;
+      document.body.appendChild(point);
+    }
+  </script>
+</body>
+</html>

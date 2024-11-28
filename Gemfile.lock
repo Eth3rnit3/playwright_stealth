@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     playwright_stealth (0.0.1.pre)
+      ffi (~> 1.17.0)
       playwright-ruby-client (~> 1.47)
       rubyzip (~> 2.3)
 
@@ -14,6 +15,8 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
+    ffi (1.17.0)
+    ffi (1.17.0-x86_64-darwin)
     io-console (0.7.2)
     irb (1.14.1)
       rdoc (>= 4.0.0)

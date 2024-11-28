@@ -20,12 +20,14 @@ module PlaywrightStealth
       @headless       = false
       @args           = [
         '--no-first-run',
-        '--start-maximized',
         '--lang=en-EN',
-        '--disable-blink-features=AutomationControlled'
+        '--disable-blink-features=AutomationControlled',
+        '--disable-popup-blocking'
       ]
       @headless_args = [
-        '--window-position=-2400,-2400',
+        '--window-size=1920,1080',
+        '--window-position=-0,0',
+        '--start-maximized',
         '--headless=new'
       ]
     end
